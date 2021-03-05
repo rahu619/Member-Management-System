@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoyaltyPrime.Core\LoyaltyPrime.Core.csproj" />
+    <ProjectReference Include="..\LoyaltyPrime.Services\LoyaltyPrime.Services.csproj" />
+    <ProjectReference Include="..\LoyaltyPrime.Data\LoyaltyPrime.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+</Project>
