@@ -22,6 +22,8 @@ namespace LoyaltyPrime.Data.Configurations
             builder.Property(x => x.Address)
                     .IsRequired();
 
+
+
             builder.ToTable(nameof(Member));
         }
     }

@@ -13,11 +13,13 @@ namespace LoyaltyPrime.Core.Models
 
         public string Address { get; set; }
 
-        public ICollection<Account> Accounts { get; set; }
+        public ICollection<MemberAccount> MemberAccounts { get; set; }
 
         /// <summary>
         /// Retrieves fullname of the member.
         /// </summary>
         public string FullName => $"{FirstName} {LastName}";
+
+
     }
 }

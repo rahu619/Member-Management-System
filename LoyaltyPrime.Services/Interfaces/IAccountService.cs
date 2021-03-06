@@ -7,7 +7,7 @@ namespace LoyaltyPrime.Services
     /// <summary>
     /// 
     /// </summary>
-    interface IAccountService
+    public interface IAccountService
     {
         Task<IEnumerable<Account>> GetAllAccounts();
     }

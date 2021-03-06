@@ -1,22 +1,26 @@
 ﻿using LoyaltyPrime.Core.Models;
-using LoyaltyPrime.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoyaltyPrime.Data
 {
     public class LoyaltyPrimeDbContext : DbContext
     {
+        public LoyaltyPrimeDbContext(DbContextOptions options) : base(options)
+        {
+        }
         DbSet<Account> Accounts { get; set; }
 
-        DbSet<Account> Members { get; set; }
+        DbSet<Member> Members { get; set; }
 
-        public LoyaltyPrimeDbContext(DbContextOptions options) : base(options)
-        { }
+        DbSet<MemberAccount> MemberAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new MemberConfiguration());
-            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.Entity<MemberAccount>()
+                        .HasKey(x => new { x.MemberID, x.AccountID });
+
+            //modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            //modelBuilder.ApplyConfiguration(new AccountConfiguration());
         }
 
     }

@@ -431,3 +431,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+##
+## Avoiding EFCore Target files generated in the Main project
+##
+/LoyaltyPrime.API/LoyaltyPrime.Data/

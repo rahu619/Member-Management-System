@@ -10,7 +10,7 @@ namespace LoyaltyPrime.Core.Repository
     /// 
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IRepository<TEntity> where TEntity : BaseModel
+    public interface IRepository<TEntity> where TEntity : Base
     {
         Task<TEntity> GetByIDAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();

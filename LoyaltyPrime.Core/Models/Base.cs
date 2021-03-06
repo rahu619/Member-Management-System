@@ -3,7 +3,7 @@
     /// <summary>
     ///  The base model entity.
     /// </summary>
-    public class BaseModel
+    public class Base
     {
         public int ID { get; set; }
     }
