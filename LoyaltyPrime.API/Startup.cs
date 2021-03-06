@@ -35,8 +35,11 @@ namespace LoyaltyPrime.API
                     x => x.MigrationsAssembly("LoyaltyPrime.Data"))
                    );
 
+            services.AddAutoMapper(typeof(Startup));
 
             ConfigureSwagger(services);
+
+
         }
 
         private void ConfigureSwagger(IServiceCollection services)
