@@ -5,7 +5,7 @@ namespace LoyaltyPrime.Core.Models
     /// <summary>
     ///  The account entity.
     /// </summary>
-    public class Account : Base
+    public class Account
     {
         /// <summary>
         /// The name of the company

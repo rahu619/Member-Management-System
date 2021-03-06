@@ -5,7 +5,7 @@ namespace LoyaltyPrime.Core.Models
     /// <summary>
     /// The member entity
     /// </summary>
-    public class Member : Base
+    public class Member
     {
         public string FirstName { get; set; }
 

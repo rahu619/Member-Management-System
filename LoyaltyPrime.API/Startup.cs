@@ -1,4 +1,7 @@
+using AutoMapper;
+using LoyaltyPrime.API.Models;
 using LoyaltyPrime.Core;
+using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Data;
 using LoyaltyPrime.Services;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +26,9 @@ namespace LoyaltyPrime.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllers();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -35,7 +41,6 @@ namespace LoyaltyPrime.API
                     x => x.MigrationsAssembly("LoyaltyPrime.Data"))
                    );
 
-            services.AddAutoMapper(typeof(Startup));
 
             ConfigureSwagger(services);
 
@@ -70,8 +75,8 @@ namespace LoyaltyPrime.API
                 endpoints.MapControllers();
             });
 
+            //configuring swagger
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "";
@@ -80,6 +85,15 @@ namespace LoyaltyPrime.API
             });
 
             app.UseDeveloperExceptionPage();
+
+            //configuring Automapper
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Member, MemberDTO>();
+                cfg.CreateMap<Account, AccountDTO>();
+                cfg.CreateMap<MemberAccount, MemberAccountDTO>();
+
+            });
         }
     }
 }

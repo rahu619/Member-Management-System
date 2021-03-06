@@ -9,16 +9,20 @@ using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Base
+    /// <summary>
+    /// The base repository
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext _dbContext;
         public Repository(DbContext dbContext)
         {
             this._dbContext = dbContext;
         }
-        public async Task<TEntity> GetByIDAsync(int id)
+        public async ValueTask<TEntity> GetByIDAsync(int id)
         {
-            return await this._dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.ID == id);
+            return await this._dbContext.Set<TEntity>().FindAsync(id);
         }
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {

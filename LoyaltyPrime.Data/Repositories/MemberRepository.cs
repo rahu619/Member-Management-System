@@ -1,8 +1,12 @@
 ﻿using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Core.Repository;
+using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Data.Repositories
 {
+    /// <summary>
+    /// The member entity repository
+    /// </summary>
     public class MemberRepository : Repository<Member>, IMemberRepository
     {
 
@@ -11,11 +15,11 @@ namespace LoyaltyPrime.Data.Repositories
 
         }
 
-
-        /*
-         * Methods to filter members
-         * 
-         */
+        public async Task<int> AddMemberAsync(Member member)
+        {
+            _dbContext.Add(member);
+            return await _dbContext.SaveChangesAsync();
+        }
 
     }
 }

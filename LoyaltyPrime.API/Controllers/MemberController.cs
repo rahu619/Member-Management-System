@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LoyaltyPrime.API.Models;
+using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,27 @@ namespace LoyaltyPrime.API.Controllers
             this._mapper = mapper;
         }
 
+
         [HttpGet()]
-        public ActionResult<IList<MemberDTO>> GetAllMembers()
+        public async Task<ActionResult<IList<MemberDTO>>> GetAllMembers()
         {
-            List<MemberDTO> members = null;
+            var members = await this._memberService.GetAllMembersAsync();
             return Ok(members);
+        }
+
+        [HttpPost()]
+        public async Task<ActionResult> CreateMember([FromBody] MemberDTO member)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var mappedMember = this._mapper.Map<Member>(member);
+            var ID = await this._memberService.AddMemberAsync(mappedMember);
+
+            return CreatedAtAction(nameof(CreateMember), ID, member);
+
         }
     }
 }
