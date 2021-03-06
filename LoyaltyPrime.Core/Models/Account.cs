@@ -7,6 +7,8 @@ namespace LoyaltyPrime.Core.Models
     /// </summary>
     public class Account
     {
+        public int ID { get; set; }
+
         /// <summary>
         /// The name of the company
         /// </summary>

@@ -26,7 +26,6 @@ namespace LoyaltyPrime.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
@@ -86,14 +85,7 @@ namespace LoyaltyPrime.API
 
             app.UseDeveloperExceptionPage();
 
-            //configuring Automapper
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Member, MemberDTO>();
-                cfg.CreateMap<Account, AccountDTO>();
-                cfg.CreateMap<MemberAccount, MemberAccountDTO>();
 
-            });
         }
     }
 }

@@ -7,6 +7,8 @@ namespace LoyaltyPrime.Core.Models
     /// </summary>
     public class Member
     {
+        public int ID { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -18,7 +20,7 @@ namespace LoyaltyPrime.Core.Models
         /// <summary>
         /// Retrieves fullname of the member.
         /// </summary>
-        public string FullName => $"{FirstName} {LastName}";
+        //public string FullName => $"{FirstName} {LastName}";
 
 
     }

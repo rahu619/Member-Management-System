@@ -24,14 +24,14 @@ namespace LoyaltyPrime.API.Controllers
         }
 
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<IList<MemberDTO>>> GetAllMembers()
         {
             var members = await this._memberService.GetAllMembersAsync();
             return Ok(members);
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<ActionResult> CreateMember([FromBody] MemberDTO member)
         {
             if (!ModelState.IsValid)
@@ -39,7 +39,7 @@ namespace LoyaltyPrime.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var mappedMember = this._mapper.Map<Member>(member);
+            var mappedMember = this._mapper.Map<MemberDTO, Member>(member);
             var ID = await this._memberService.AddMemberAsync(mappedMember);
 
             return CreatedAtAction(nameof(CreateMember), ID, member);
