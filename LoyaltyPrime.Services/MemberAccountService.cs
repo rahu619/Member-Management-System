@@ -48,8 +48,7 @@ namespace LoyaltyPrime.Services
         public async Task<int> DeductFromBalance(MemberAccount memberAccount, int points)
         {
             var updatedMemberAccount = await RetrieveUpdatedMemberAccount(memberAccount);
-
-            if(updatedMemberAccount.Balance < points)
+            if (updatedMemberAccount.Balance < points)
             {
                 throw new Exception($"Sorry, you don't have enough balance to redeem {points} points.");
             }
@@ -74,7 +73,7 @@ namespace LoyaltyPrime.Services
 
             var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
 
-            //verify if the member account exists
+            //verifying if the member account exists
             if (updatedMemberAccount is null)
             {
                 throw new Exception($"No member account exists for the Member ID:{memberAccount.MemberID} and Account ID:{memberAccount.AccountID}");

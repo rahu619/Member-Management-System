@@ -9,19 +9,11 @@ namespace LoyaltyPrime.Core.Models
     {
         public int ID { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         public string Address { get; set; }
 
         public ICollection<MemberAccount> MemberAccounts { get; set; }
-
-        /// <summary>
-        /// Retrieves fullname of the member.
-        /// </summary>
-        //public string FullName => $"{FirstName} {LastName}";
-
 
     }
 }
