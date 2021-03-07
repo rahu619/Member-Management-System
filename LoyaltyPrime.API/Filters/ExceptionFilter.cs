@@ -11,11 +11,10 @@ namespace LoyaltyPrime.API.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            //keeping it simple for now.
             //Returning 'Internal Server Error' for all unhandled exceptions.
             if (context.Exception != null)
             {
-                context.Result = new ObjectResult(context.Exception.Message)
+                context.Result = new ObjectResult(context.Exception.InnerException?.Message ?? context.Exception.Message)
                 {
                     StatusCode = 500
                 };

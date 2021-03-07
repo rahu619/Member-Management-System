@@ -19,24 +19,33 @@ namespace LoyaltyPrime.Services
         /// <summary>
         /// Creates a new member account
         /// </summary>
-        /// <param name="member"></param>
+        /// <param name="memberAccount"></param>
         public async Task<int> AddMemberAccountAsync(MemberAccount memberAccount)
         {
+            var fetchedMemberAccount = await RetrieveMemberAccount(memberAccount);
+            if (fetchedMemberAccount != null)
+            {
+                //In an ideal scenario this will be a custom exception class
+                throw new Exception("Member Account already exists!");
+            }
             return await this._unitOfWork.MemberAccounts.AddMemberAccountAsync(memberAccount);
         }
 
         /// <summary>
         /// To collect points to the member account 
         /// </summary>
-        /// <param name="memberID"></param>
+        /// <param name="memberAccount"></param>
         /// <param name="points"></param>
         /// <returns></returns>
         public async Task<int> AddToBalance(MemberAccount memberAccount, int points)
         {
-            var updatedMemberAccount = await RetrieveUpdatedMemberAccount(memberAccount);
-            updatedMemberAccount.Balance += points;
+            var fetchedMemberAccount = await RetrieveMemberAccount(memberAccount);
 
-            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(updatedMemberAccount);
+            ValidatingBeforeUpdatingTheBalance(fetchedMemberAccount);
+
+            fetchedMemberAccount.Balance += points;
+
+            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(fetchedMemberAccount);
         }
 
         /// <summary>
@@ -47,15 +56,18 @@ namespace LoyaltyPrime.Services
         /// <returns></returns>
         public async Task<int> DeductFromBalance(MemberAccount memberAccount, int points)
         {
-            var updatedMemberAccount = await RetrieveUpdatedMemberAccount(memberAccount);
-            if (updatedMemberAccount.Balance < points)
+            var fetchedMemberAccount = await RetrieveMemberAccount(memberAccount);
+
+            ValidatingBeforeUpdatingTheBalance(fetchedMemberAccount);
+
+            if (fetchedMemberAccount.Balance < points)
             {
                 throw new Exception($"Sorry, you don't have enough balance to redeem {points} points.");
             }
 
-            updatedMemberAccount.Balance -= points;
+            fetchedMemberAccount.Balance -= points;
 
-            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(updatedMemberAccount);
+            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(fetchedMemberAccount);
         }
 
         /// <summary>
@@ -64,28 +76,34 @@ namespace LoyaltyPrime.Services
         /// </summary>
         /// <param name="memberAccount"></param>
         /// <returns></returns>
-        public async Task<MemberAccount> RetrieveUpdatedMemberAccount(MemberAccount memberAccount)
+        public async Task<MemberAccount> RetrieveMemberAccount(MemberAccount memberAccount)
         {
             if (memberAccount is null)
             {
                 throw new Exception("Please pass a valid member account entity.");
             }
 
-            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
+            return await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
 
+        }
+
+        /// <summary>
+        /// Verifies if a member account is valid enough to be updated.
+        /// </summary>
+        /// <param name="memberAccount"></param>
+        public void ValidatingBeforeUpdatingTheBalance(MemberAccount memberAccount)
+        {
             //verifying if the member account exists
-            if (updatedMemberAccount is null)
+            if (memberAccount is null)
             {
-                throw new Exception($"No member account exists for the Member ID:{memberAccount.MemberID} and Account ID:{memberAccount.AccountID}");
+                throw new Exception($"No member account exists for the Member ID and Account ID.");
             }
 
             //verifying if the member account is inactive
-            if (!updatedMemberAccount.IsActive)
+            if (!memberAccount.IsActive)
             {
                 throw new Exception("Sorry, please activate your member account.");
             }
-
-            return updatedMemberAccount;
         }
     }
 }
