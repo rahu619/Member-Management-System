@@ -1,5 +1,5 @@
-﻿
-using LoyaltyPrime.Core.Models.Data;
+﻿using LoyaltyPrime.Core.Models.Data;
+using LoyaltyPrime.Core.Models.Parameters;
 using LoyaltyPrime.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace LoyaltyPrime.API.Controllers
             this._dataService = dataService;
         }
 
-        [HttpPost,Route("import")]
+        [HttpPost, Route(nameof(Import))]
         public async Task<IActionResult> Import([FromBody] DataMember[] members)
         {
             await this._dataService.ImportData(members);
@@ -24,5 +24,11 @@ namespace LoyaltyPrime.API.Controllers
             return NoContent();
         }
 
+        [HttpGet, Route(nameof(Export))]
+        public async Task<IActionResult> Export([FromQuery] MemberParameters memberParameters)
+        {
+            var result = await this._dataService.ExportData(memberParameters);
+            return Ok(result);
+        }
     }
 }

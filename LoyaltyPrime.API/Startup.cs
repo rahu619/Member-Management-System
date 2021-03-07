@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace LoyaltyPrime.API
 {
@@ -40,7 +41,8 @@ namespace LoyaltyPrime.API
 
             services.AddDbContext<LoyaltyPrimeDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Default"),
-                    x => x.MigrationsAssembly("LoyaltyPrime.Data"))
+                    x => x.MigrationsAssembly("LoyaltyPrime.Data")),
+                    ServiceLifetime.Transient
                    );
 
             ConfigureSwagger(services);

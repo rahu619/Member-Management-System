@@ -1,9 +1,11 @@
 ﻿using LoyaltyPrime.Core;
 using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Core.Models.Data;
+using LoyaltyPrime.Core.Models.Parameters;
 using LoyaltyPrime.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace LoyaltyPrime.Services
 {
@@ -53,5 +55,40 @@ namespace LoyaltyPrime.Services
 
             }
         }
+
+        /// <summary>
+        /// Export the tables to JSON Data format
+        /// </summary>
+        /// <param name="memberParameters"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<DataMember>> ExportData(MemberParameters memberParameters)
+        {
+            var filteredMembersTask = await this._unitOfWork.Members.FindAsync(x => string.IsNullOrEmpty(memberParameters.Name) || x.Name == memberParameters.Name);
+            var filteredMemberAccountsTask = await this._unitOfWork.MemberAccounts.FindAsync(x => memberParameters.Status.HasValue ? x.IsActive == (memberParameters.Status.Value == Status.Active) : true);
+            var filteredAccountsTask = await this._unitOfWork.Accounts.FindAsync(x => string.IsNullOrEmpty(memberParameters.Company) || x.CompanyName.ToLower().Equals(memberParameters.Company.ToLower()));
+
+            //await Task.WhenAll(filteredMembersTask, filteredMemberAccountsTask, filteredAccountsTask);
+
+            var result = (from mem in filteredMembersTask
+                          select new DataMember
+                          {
+                              Name = mem.Name,
+                              Address = mem.Address,
+                              Accounts = (
+                                          from mem_acc in filteredMemberAccountsTask
+                                          join acc in filteredAccountsTask
+                                          on new { mem_acc.MemberID, mem_acc.AccountID } equals new { MemberID = mem.ID, AccountID = acc.ID }
+                                          select new DataMemberAccount
+                                          {
+                                              Name = acc.CompanyName,
+                                              Balance = mem_acc.Balance,
+                                              Status = mem_acc.IsActive ? Status.Active : Status.Inactive
+                                          }).ToList()
+                          }).ToArray();
+
+            return result;
+
+        }
+
     }
 }

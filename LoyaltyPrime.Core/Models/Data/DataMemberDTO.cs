@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace LoyaltyPrime.Core.Models.Data
 {
@@ -18,6 +20,8 @@ namespace LoyaltyPrime.Core.Models.Data
     {
         public string Name { get; set; }
         public int Balance { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public Status Status { get; set; }
     }
 

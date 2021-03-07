@@ -21,11 +21,7 @@ namespace LoyaltyPrime.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        /// <summary>
-        /// Retrieves the entity by ID 
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
+
         public async ValueTask<TEntity> GetByIDAsync(int id)
         {
             return await this._dbContext.Set<TEntity>().FindAsync(id);
@@ -36,6 +32,7 @@ namespace LoyaltyPrime.Data.Repositories
             return await this._dbContext.Set<TEntity>().ToListAsync();
         }
 
+
         public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _dbContext.Set<TEntity>().SingleOrDefaultAsync(predicate);
@@ -44,6 +41,11 @@ namespace LoyaltyPrime.Data.Repositories
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return  _dbContext.Set<TEntity>().Where(predicate).ToList();
         }
 
         public async Task<int> AddAsync(TEntity entity)
@@ -70,6 +72,10 @@ namespace LoyaltyPrime.Data.Repositories
             await this._dbContext.SaveChangesAsync();
         }
 
+        public IQueryable<TEntity> GetAsQueryable()
+        {
+            return this._dbContext.Set<TEntity>().AsQueryable();
+        }
 
 
     }

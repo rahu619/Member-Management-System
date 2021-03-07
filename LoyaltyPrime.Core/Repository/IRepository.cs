@@ -1,6 +1,7 @@
 ﻿using LoyaltyPrime.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -16,10 +17,11 @@ namespace LoyaltyPrime.Core.Repository
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         Task<int> AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         Task<int> UpdateAsync(TEntity entity);
         Task Delete(TEntity entity);
-
+        IQueryable<TEntity> GetAsQueryable();
     }
 }
