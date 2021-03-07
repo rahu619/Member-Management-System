@@ -1,5 +1,4 @@
 ﻿using LoyaltyPrime.Core.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
@@ -10,9 +9,5 @@ namespace LoyaltyPrime.Services
     public interface IAccountService
     {
         Task<int> AddAccountAsync(Account account);
-
-        Task DeleteAccountAsync(int accountID);
-
-        Task<IEnumerable<Account>> GetAllAccounts();
     }
 }

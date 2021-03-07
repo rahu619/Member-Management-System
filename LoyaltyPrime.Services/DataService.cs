@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace LoyaltyPrime.Services
 {
+    /// <summary>
+    /// The data service entity.
+    /// </summary>
     public class DataService : IDataService
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
 {
+    /// <summary>
+    /// The interface for member account service.
+    /// </summary>
     public interface IMemberAccountService
     {
         Task<int> AddMemberAccountAsync(MemberAccount memberAccount);

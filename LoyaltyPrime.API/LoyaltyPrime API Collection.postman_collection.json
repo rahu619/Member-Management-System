@@ -38,6 +38,35 @@
 			"response": []
 		},
 		{
+			"name": "Add an account (Company)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MemberID\": 10,\r\n    \"AccountID\": 5,\r\n    \"Balance\": 100,\r\n    \"IsActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/MemberAccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"MemberAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add a member account",
 			"request": {
 				"method": "POST",

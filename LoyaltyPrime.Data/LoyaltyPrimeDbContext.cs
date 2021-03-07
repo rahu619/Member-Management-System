@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LoyaltyPrime.Data
 {
+    /// <summary>
+    /// The database context
+    /// </summary>
     public class LoyaltyPrimeDbContext : DbContext
     {
         public LoyaltyPrimeDbContext(DbContextOptions options) : base(options)
@@ -18,9 +21,6 @@ namespace LoyaltyPrime.Data
         {
             modelBuilder.Entity<MemberAccount>()
                         .HasKey(x => new { x.MemberID, x.AccountID });
-
-            //modelBuilder.ApplyConfiguration(new MemberConfiguration());
-            //modelBuilder.ApplyConfiguration(new AccountConfiguration());
         }
 
     }

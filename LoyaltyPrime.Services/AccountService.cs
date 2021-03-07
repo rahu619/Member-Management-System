@@ -1,11 +1,13 @@
 ﻿using LoyaltyPrime.Core;
 using LoyaltyPrime.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
 {
+    /// <summary>
+    /// The account service entity.
+    /// </summary>
     public class AccountService : IAccountService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -14,21 +16,14 @@ namespace LoyaltyPrime.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public Task<int> AddAccountAsync(Account account)
+        public async Task<int> AddAccountAsync(Account account)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(account.CompanyName))
+            {
+                throw new Exception("Please enter a valid Account Company name.");
+            }
+            return await this._unitOfWork.Accounts.AddAsync(account);
         }
 
-        public Task DeleteAccountAsync(int accountID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Account>> GetAllAccounts()
-        {
-            //TODO 
-            //this._unitOfWork.
-            throw new NotImplementedException("Yet to implement!");
-        }
     }
 }

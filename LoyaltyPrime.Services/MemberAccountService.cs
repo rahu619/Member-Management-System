@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace LoyaltyPrime.Services
 {
     /// <summary>
-    /// The member account service
+    /// The Member Account service entity.
     /// </summary>
     public class MemberAccountService : IMemberAccountService
     {

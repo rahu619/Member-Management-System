@@ -1,14 +1,13 @@
 ﻿using LoyaltyPrime.Core;
 using LoyaltyPrime.Core.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
 {
     /// <summary>
-    /// 
+    /// The Member service entity.
     /// </summary>
     public class MemberService : IMemberService
     {
@@ -19,7 +18,7 @@ namespace LoyaltyPrime.Services
         }
 
         /// <summary>
-        /// Retrieves all members
+        /// Retrieves all the members
         /// </summary>
         /// <returns></returns>
         public Task<IEnumerable<Member>> GetAllMembersAsync()
@@ -28,12 +27,12 @@ namespace LoyaltyPrime.Services
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a member based on the ID parameter passed in.
         /// </summary>
         /// <returns></returns>
-        public Task<Member> GetMemberAsync(int memberID)
+        public async Task<Member> GetMemberAsync(int memberID)
         {
-            throw new NotImplementedException();
+            return await this._unitOfWork.Members.SingleAsync(x => x.ID == memberID);
         }
 
         /// <summary>

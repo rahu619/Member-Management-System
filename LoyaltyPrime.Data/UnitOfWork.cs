@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LoyaltyPrime.Data
 {
     /// <summary>
-    /// Wrapper for all our individual repositories
+    /// A Wrapper class for all our individual repositories
     /// </summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
