@@ -2,6 +2,7 @@
 using LoyaltyPrime.Core.Models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
@@ -21,7 +22,16 @@ namespace LoyaltyPrime.Services
         /// Retrieves all members
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable> GetAllMembersAsync()
+        public Task<IEnumerable<Member>> GetAllMembersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Task<Member> GetMemberAsync(int memberID)
         {
             throw new NotImplementedException();
         }

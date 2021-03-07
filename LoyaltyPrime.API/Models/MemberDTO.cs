@@ -8,6 +8,8 @@ namespace LoyaltyPrime.API.Models
     /// </summary>
     public class MemberDTO
     {
+        public int ID { get; set; }
+
         [Required, StringLength(100, ErrorMessage = "First name length can't be more than 100")]
         public string FirstName { get; set; }
 

@@ -15,10 +15,14 @@ namespace LoyaltyPrime.Data.Repositories
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public async Task<int> AddMemberAsync(Member member)
         {
-            _dbContext.Add(member);
-            return await _dbContext.SaveChangesAsync();
+            return await AddAsync(member);
         }
 
     }

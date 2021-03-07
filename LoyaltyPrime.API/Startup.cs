@@ -1,7 +1,5 @@
 using AutoMapper;
-using LoyaltyPrime.API.Models;
 using LoyaltyPrime.Core;
-using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Data;
 using LoyaltyPrime.Services;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +41,6 @@ namespace LoyaltyPrime.API
 
             ConfigureSwagger(services);
 
-
         }
 
         private void ConfigureSwagger(IServiceCollection services)
@@ -63,6 +60,7 @@ namespace LoyaltyPrime.API
                 app.UseDeveloperExceptionPage();
             }
 
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -74,7 +72,6 @@ namespace LoyaltyPrime.API
                 endpoints.MapControllers();
             });
 
-            //configuring swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

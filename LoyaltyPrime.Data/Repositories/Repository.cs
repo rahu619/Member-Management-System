@@ -33,19 +33,22 @@ namespace LoyaltyPrime.Data.Repositories
             return _dbContext.Set<TEntity>().Where(predicate);
         }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task<int> AddAsync(TEntity entity)
         {
             await this._dbContext.Set<TEntity>().AddAsync(entity);
+            return await this._dbContext.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await this._dbContext.Set<TEntity>().AddRangeAsync(entities);
+            await this._dbContext.SaveChangesAsync();
         }
 
         public void Delete(TEntity entity)
         {
             this._dbContext.Set<TEntity>().Remove(entity);
+            this._dbContext.SaveChanges();
         }
 
 

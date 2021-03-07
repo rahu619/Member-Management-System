@@ -9,6 +9,10 @@ namespace LoyaltyPrime.Services
     /// </summary>
     public interface IAccountService
     {
+        Task<int> AddAccountAsync(Account account);
+
+        Task DeleteAccountAsync(int accountID);
+
         Task<IEnumerable<Account>> GetAllAccounts();
     }
 }

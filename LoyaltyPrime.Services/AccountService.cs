@@ -14,6 +14,16 @@ namespace LoyaltyPrime.Services
             this._unitOfWork = unitOfWork;
         }
 
+        public Task<int> AddAccountAsync(Account account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAccountAsync(int accountID)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Account>> GetAllAccounts()
         {
             //TODO 

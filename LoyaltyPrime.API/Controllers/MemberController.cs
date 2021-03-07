@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using LoyaltyPrime.API.Models;
 using LoyaltyPrime.Core.Models;
 using LoyaltyPrime.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LoyaltyPrime.API.Controllers
 {
@@ -31,6 +28,17 @@ namespace LoyaltyPrime.API.Controllers
             return Ok(members);
         }
 
+        [HttpGet("{memberID:int}")]
+        public async Task<ActionResult<MemberDTO>> GetMemberByID(int memberID)
+        {
+            if (memberID <= 0)
+            {
+                return BadRequest("Please enter a valid member ID");
+            }
+            var members = await this._memberService.GetMemberAsync(memberID);
+            return Ok(members);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateMember([FromBody] MemberDTO member)
         {
@@ -39,10 +47,15 @@ namespace LoyaltyPrime.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var mappedMember = this._mapper.Map<MemberDTO, Member>(member);
-            var ID = await this._memberService.AddMemberAsync(mappedMember);
+            //mapping the DTO to entity 
+            var mappedMember = this._mapper.Map<Member>(member);
 
-            return CreatedAtAction(nameof(CreateMember), ID, member);
+            await this._memberService.AddMemberAsync(mappedMember);
+
+            //reverse mapping the entity back to DTO, for sending the result out to clients.
+            member = this._mapper.Map<MemberDTO>(mappedMember);
+
+            return CreatedAtAction(nameof(CreateMember), member);
 
         }
     }
