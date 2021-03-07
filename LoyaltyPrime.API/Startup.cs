@@ -3,6 +3,7 @@ using LoyaltyPrime.API.Filters;
 using LoyaltyPrime.Core;
 using LoyaltyPrime.Data;
 using LoyaltyPrime.Services;
+using LoyaltyPrime.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,18 +29,19 @@ namespace LoyaltyPrime.API
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers(options =>
-                                    options.Filters.Add(new ExceptionFilter()));
+                                    options.Filters.Add(new ExceptionFilter()))
+                    .AddNewtonsoftJson();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IMemberAccountService, MemberAccountService>();
+            services.AddTransient<IDataService, DataService>();
 
             services.AddDbContext<LoyaltyPrimeDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Default"),
                     x => x.MigrationsAssembly("LoyaltyPrime.Data"))
                    );
-
 
             ConfigureSwagger(services);
 

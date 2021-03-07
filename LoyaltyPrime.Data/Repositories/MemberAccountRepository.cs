@@ -12,7 +12,7 @@ namespace LoyaltyPrime.Data.Repositories
         public MemberAccountRepository(LoyaltyPrimeDbContext dbContext) : base(dbContext) { }
 
         /// <summary>
-        /// TODO: To check If it's worth the async call
+        /// TODO: This method's bit pointless at the moment.
         /// </summary>
         /// <param name="memberAccount"></param>
         /// <returns></returns>
@@ -21,14 +21,18 @@ namespace LoyaltyPrime.Data.Repositories
             return await AddAsync(memberAccount);
         }
 
+        /// <summary>
+        /// TODO: This method's bit pointless at the moment.
+        /// </summary>
+        /// <param name="memberAccount"></param>
+        /// <returns></returns>
         public async Task<int> UpdateMemberAccountAsync(MemberAccount memberAccount)
         {
             return await UpdateAsync(memberAccount);
         }
 
         /// <summary>
-        /// Retrieves the member account by passing in the composite key
-        /// ie, Member key and the Account key
+        /// Retrieves the member account by passing in the composite key (Member & Account key)
         /// </summary>
         /// <param name="memberID"></param>
         /// <param name="accountID"></param>

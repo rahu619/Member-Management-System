@@ -19,6 +19,10 @@
     <ProjectReference Include="..\LoyaltyPrime.Core\LoyaltyPrime.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace LoyaltyPrime.Services
 {
     /// <summary>
-    /// 
+    /// The interface for account service.
     /// </summary>
     public interface IAccountService
     {

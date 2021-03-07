@@ -10,7 +10,7 @@ namespace LoyaltyPrime.API.Models
     {
         public int ID { get; set; }
 
-        [Required, StringLength(200, ErrorMessage = "First name length can't be more than 100")]
+        [Required, StringLength(200, ErrorMessage = "Name length exceeded!")]
         public string Name { get; set; }
 
         [Required, StringLength(1000)]

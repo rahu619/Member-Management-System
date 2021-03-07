@@ -38,7 +38,7 @@ namespace LoyaltyPrime.Data.Repositories
 
         public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbContext.Set<TEntity>().SingleAsync(predicate);
+            return await _dbContext.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)

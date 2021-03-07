@@ -16,13 +16,20 @@ namespace LoyaltyPrime.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// For creating a new member
         /// </summary>
         /// <param name="member"></param>
         /// <returns></returns>
+        /// <remarks></remarks>
         public async Task<int> AddMemberAsync(Member member)
         {
-            return await AddAsync(member);
+            //if ID already exists, then return
+            if (member.ID > 0)
+                return -1;
+
+            await AddAsync(member);
+
+            return member.ID;
         }
 
     }
