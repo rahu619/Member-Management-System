@@ -58,7 +58,6 @@ namespace LoyaltyPrime.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            //TODO: handle exception
             await this._memberAccountService.DeductFromBalance(memberAccount, points);
 
             return NoContent();

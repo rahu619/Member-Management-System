@@ -28,7 +28,7 @@ namespace LoyaltyPrime.API
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers(options =>
-                                    options.Filters.Add(new UnHandledExceptionFilter()));
+                                    options.Filters.Add(new ExceptionFilter()));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IAccountService, AccountService>();

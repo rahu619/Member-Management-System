@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 
 namespace LoyaltyPrime.API.Filters
 {
-    public class UnHandledExceptionFilter : IActionFilter, IOrderedFilter
+    public class ExceptionFilter : IActionFilter, IOrderedFilter
     {
         public int Order { get; } = int.MaxValue - 10;
 

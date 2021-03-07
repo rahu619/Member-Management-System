@@ -1,5 +1,6 @@
 ﻿using LoyaltyPrime.Core;
 using LoyaltyPrime.Core.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace LoyaltyPrime.Services
@@ -32,15 +33,7 @@ namespace LoyaltyPrime.Services
         /// <returns></returns>
         public async Task<int> AddToBalance(MemberAccount memberAccount, int points)
         {
-            //TODO: Add validations
-            if (!(memberAccount?.MemberID).HasValue)
-            {
-                //TODO: refactor
-                //throw exception from here
-                //but return NotFound() from API
-            }
-            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
-
+            var updatedMemberAccount = await RetrieveUpdatedMemberAccount(memberAccount);
             updatedMemberAccount.Balance += points;
 
             return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(updatedMemberAccount);
@@ -54,16 +47,46 @@ namespace LoyaltyPrime.Services
         /// <returns></returns>
         public async Task<int> DeductFromBalance(MemberAccount memberAccount, int points)
         {
-            if (!(memberAccount?.MemberID).HasValue)
+            var updatedMemberAccount = await RetrieveUpdatedMemberAccount(memberAccount);
+
+            if(updatedMemberAccount.Balance < points)
             {
-
+                throw new Exception($"Sorry, you don't have enough balance to redeem {points} points.");
             }
-            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDAsync(memberAccount.MemberID);
-            memberAccount.Balance -= points;
 
-            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(memberAccount);
+            updatedMemberAccount.Balance -= points;
+
+            return await this._unitOfWork.MemberAccounts.UpdateMemberAccountAsync(updatedMemberAccount);
         }
 
+        /// <summary>
+        /// Retrieves the updated value from the database.
+        /// Just to be on the safe side.
+        /// </summary>
+        /// <param name="memberAccount"></param>
+        /// <returns></returns>
+        public async Task<MemberAccount> RetrieveUpdatedMemberAccount(MemberAccount memberAccount)
+        {
+            if (memberAccount is null)
+            {
+                throw new Exception("Please pass a valid member account entity.");
+            }
 
+            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
+
+            //verify if the member account exists
+            if (updatedMemberAccount is null)
+            {
+                throw new Exception($"No member account exists for the Member ID:{memberAccount.MemberID} and Account ID:{memberAccount.AccountID}");
+            }
+
+            //verifying if the member account is inactive
+            if (!updatedMemberAccount.IsActive)
+            {
+                throw new Exception("Sorry, please activate your member account.");
+            }
+
+            return updatedMemberAccount;
+        }
     }
 }
