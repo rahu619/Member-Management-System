@@ -39,7 +39,7 @@ namespace LoyaltyPrime.Services
                 //throw exception from here
                 //but return NotFound() from API
             }
-            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDAsync(memberAccount.MemberID);
+            var updatedMemberAccount = await this._unitOfWork.MemberAccounts.GetByIDsAsync(memberAccount.MemberID, memberAccount.AccountID);
 
             updatedMemberAccount.Balance += points;
 

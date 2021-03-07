@@ -13,6 +13,8 @@ namespace LoyaltyPrime.API.Mapping
             CreateMap<MemberAccount, MemberAccountDTO>();
 
             CreateMap<MemberDTO, Member>();
-        }   
-    }       
+            CreateMap<AccountDTO, Account>();
+            CreateMap<MemberAccountDTO, MemberAccount>();
+        }
+    }
 }

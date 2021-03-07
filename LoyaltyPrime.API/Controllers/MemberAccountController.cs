@@ -20,21 +20,24 @@ namespace LoyaltyPrime.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMemberAccount([FromBody] MemberAccountDTO member)
+        public async Task<IActionResult> CreateMemberAccount([FromBody] MemberAccountDTO memberAccount)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var mappedMember = this._mapper.Map<MemberAccount>(member);
-            var ID = await this._memberAccountService.AddMemberAccountAsync(mappedMember);
+            var mappedMemberAccount = this._mapper.Map<MemberAccount>(memberAccount);
 
-            return CreatedAtAction(nameof(CreateMemberAccount), ID, member);
+            await this._memberAccountService.AddMemberAccountAsync(mappedMemberAccount);
+            
+            memberAccount = this._mapper.Map<MemberAccountDTO>(mappedMemberAccount);
+
+            return CreatedAtAction(nameof(CreateMemberAccount), memberAccount);
 
         }
 
-        [HttpPut, Route("collect/{points:int}")]
+        [HttpPut, Route("collect")]
         public async Task<IActionResult> CollectPoints(int points, [FromBody] MemberAccount memberAccount)
         {
             if (!ModelState.IsValid)
@@ -47,7 +50,7 @@ namespace LoyaltyPrime.API.Controllers
             return NoContent();
         }
 
-        [HttpPut, Route("redeem/{points:int}")]
+        [HttpPut, Route("redeem")]
         public async Task<IActionResult> RedeemPoints(int points, [FromBody] MemberAccount memberAccount)
         {
             if (!ModelState.IsValid)

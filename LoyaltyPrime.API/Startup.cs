@@ -1,4 +1,5 @@
 using AutoMapper;
+using LoyaltyPrime.API.Filters;
 using LoyaltyPrime.Core;
 using LoyaltyPrime.Data;
 using LoyaltyPrime.Services;
@@ -26,7 +27,8 @@ namespace LoyaltyPrime.API
         {
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllers();
+            services.AddControllers(options =>
+                                    options.Filters.Add(new UnHandledExceptionFilter()));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IAccountService, AccountService>();

@@ -12,12 +12,14 @@ namespace LoyaltyPrime.Core.Repository
     /// <typeparam name="TEntity"></typeparam>
     public interface IRepository<TEntity> where TEntity : class
     {
-        Task<int> AddAsync(TEntity entity);
-        Task AddRangeAsync(IEnumerable<TEntity> entities);
         ValueTask<TEntity> GetByIDAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-        void Delete(TEntity entity);
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<int> AddAsync(TEntity entity);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
+        Task<int> UpdateAsync(TEntity entity);
+        Task Delete(TEntity entity);
 
     }
 }

@@ -18,14 +18,24 @@ namespace LoyaltyPrime.Data.Repositories
         /// <returns></returns>
         public async Task<int> AddMemberAccountAsync(MemberAccount memberAccount)
         {
-            _dbContext.Add(memberAccount);
-            return await _dbContext.SaveChangesAsync();
+            return await AddAsync(memberAccount);
         }
 
         public async Task<int> UpdateMemberAccountAsync(MemberAccount memberAccount)
         {
-            _dbContext.Update(memberAccount);
-            return await _dbContext.SaveChangesAsync();
+            return await UpdateAsync(memberAccount);
+        }
+
+        /// <summary>
+        /// Retrieves the member account by passing in the composite key
+        /// ie, Member key and the Account key
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <param name="accountID"></param>
+        /// <returns></returns>
+        public async Task<MemberAccount> GetByIDsAsync(int memberID, int accountID)
+        {
+            return await SingleAsync(x => x.MemberID == memberID && x.AccountID == accountID);
         }
     }
 }

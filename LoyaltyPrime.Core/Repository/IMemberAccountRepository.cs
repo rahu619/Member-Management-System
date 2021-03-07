@@ -8,5 +8,7 @@ namespace LoyaltyPrime.Core.Repository
         Task<int> AddMemberAccountAsync(MemberAccount memberAccount);
         Task<int> UpdateMemberAccountAsync(MemberAccount memberAccount);
 
+        Task<MemberAccount> GetByIDsAsync(int memberID, int accountID);
+
     }
 }

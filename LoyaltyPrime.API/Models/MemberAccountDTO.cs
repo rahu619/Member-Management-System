@@ -7,8 +7,6 @@
     {
         public int MemberID { get; set; }
         public int AccountID { get; set; }
-        public MemberDTO Member { get; set; }
-        public AccountDTO Account { get; set; }
         public int Balance { get; set; }
         public bool IsActive { get; set; }
     }

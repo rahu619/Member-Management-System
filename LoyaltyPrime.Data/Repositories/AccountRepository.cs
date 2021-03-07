@@ -9,7 +9,7 @@ namespace LoyaltyPrime.Data.Repositories
         public AccountRepository(LoyaltyPrimeDbContext dbContext) : base(dbContext) { }
 
         /// <summary>
-        /// 
+        /// Creates a new account
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
