@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "ce15e305-78e6-4805-97f2-4453715b9be7",
+		"name": "LoyaltyPrime API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a new member",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FirstName\":\"Rahul\",\r\n    \"LastName\":\"Rajan\",\r\n    \"Address\":\"Panampally Nagar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:24573/api/Member",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "24573",
+					"path": [
+						"api",
+						"Member"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a member account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MemberID\": 10,\r\n    \"AccountID\": 5,\r\n    \"Balance\": 100,\r\n    \"IsActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/MemberAccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"MemberAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Collect Points",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MemberID\": 14,\r\n    \"AccountID\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:24573/api/MemberAccount/collect?points=50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "24573",
+					"path": [
+						"api",
+						"MemberAccount",
+						"collect"
+					],
+					"query": [
+						{
+							"key": "points",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Redeem Points",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MemberID\": 14,\r\n    \"AccountID\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:24573/api/MemberAccount/collect?points=50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "24573",
+					"path": [
+						"api",
+						"MemberAccount",
+						"collect"
+					],
+					"query": [
+						{
+							"key": "points",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Export Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:24573/api/data/export?Status=Active",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "24573",
+					"path": [
+						"api",
+						"data",
+						"export"
+					],
+					"query": [
+						{
+							"key": "Status",
+							"value": "Active"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t\t\"Name\": \"Anakin Skywalker\",\r\n\t\t\"Address\": \"Landsberger Straße 110\",\r\n\t\t\"Accounts\": \r\n\t\t[\r\n\t\t\t{\r\n\t\t\t\t\"Name\": \"Burger King\",\r\n\t\t\t\t\"Balance\": 10,\r\n\t\t\t\t\"Status\": \"ACTIVE\"\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"Balance\": 150,\r\n\t\t\t\t\"Status\": \"INACTIVE\",\r\n\t\t\t\t\"Name\": \"Fitness First\"\r\n\t\t\t}\r\n\t\t]\r\n\t}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:24573/api/data/import",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "24573",
+					"path": [
+						"api",
+						"data",
+						"import"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
