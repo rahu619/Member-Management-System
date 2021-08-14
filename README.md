@@ -23,7 +23,7 @@ dotnet run
 
 The index page will give an overview of the exposed APIs.
 
-A Postman collection could also be found in the API project - **LoyaltyPrime API Collection.postman_collection.json**. 
+Also, a Postman collection could also be found in the API project - **LoyaltyPrime API Collection.postman_collection.json**. 
 
 
 
